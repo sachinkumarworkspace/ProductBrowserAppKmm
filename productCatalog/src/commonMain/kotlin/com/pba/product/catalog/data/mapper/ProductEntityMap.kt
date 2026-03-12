@@ -12,6 +12,7 @@ fun ProductEntity.toDomain(): Product {
         thumbnail = thumbnail ?: "",
         description = description,
         rating = rating,
+        brand = brand,
         category = category
     )
 }
@@ -24,6 +25,7 @@ fun Product.toEntity(): ProductEntity {
         thumbnail = thumbnail,
         description = description,
         rating = rating,
+        brand = brand,
         category = category
     )
 }
@@ -35,6 +37,7 @@ fun ProductDtoResponse.toEntity(): ProductEntity {
         description = description,
         category = category,
         price = price,
+        brand = brand,
         rating = rating,
         thumbnail = thumbnail
     )

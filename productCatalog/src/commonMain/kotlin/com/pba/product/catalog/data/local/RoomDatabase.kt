@@ -7,7 +7,7 @@ import com.pba.product.catalog.data.local.entity.ProductEntity
 
 @Database(
     entities = [ProductEntity::class],
-    version = 1
+    version = 2
 )
 abstract class ProductDatabase : RoomDatabase() {
     abstract fun productDao(): ProductDao

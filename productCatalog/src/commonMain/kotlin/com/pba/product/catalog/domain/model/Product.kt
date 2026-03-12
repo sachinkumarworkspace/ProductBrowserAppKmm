@@ -10,5 +10,6 @@ data class Product(
     val thumbnail: String,
     val description: String,
     val rating: Double,
+    val brand: String?="Unknown",
     val category: String,
 )

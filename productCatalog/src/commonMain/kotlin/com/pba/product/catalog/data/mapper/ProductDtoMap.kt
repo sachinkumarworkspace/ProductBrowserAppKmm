@@ -11,6 +11,7 @@ fun ProductDtoResponse.toDomain(): Product {
         thumbnail = thumbnail ?: "",
         description = description,
         rating = rating,
+        brand =brand,
         category = category,
     )
 }

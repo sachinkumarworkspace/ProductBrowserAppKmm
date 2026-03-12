@@ -175,6 +175,11 @@ fun ContentProductDetails(
                             Spacer(modifier = Modifier.height(8.dp))
 
                             Text(
+                                text = "⭐ Brand: ${product.brand}",
+                                style = MaterialTheme.typography.bodyMedium
+                            )
+
+                            Text(
                                 text = "⭐ Rating: ${product.rating}",
                                 style = MaterialTheme.typography.bodyMedium
                             )

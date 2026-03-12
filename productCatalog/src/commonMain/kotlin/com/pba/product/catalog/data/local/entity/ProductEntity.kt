@@ -12,5 +12,6 @@ data class ProductEntity(
     val category: String,
     val price: Double,
     val rating: Double,
+    val brand: String?="Unknown",
     val thumbnail: String?
 )
