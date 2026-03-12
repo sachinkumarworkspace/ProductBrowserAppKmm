@@ -1,6 +1,6 @@
 # Summary of the business requirements.
 
- Mobile Product Catalog Prototype
+  Mobile Product Catalog Prototype
  
      A. Product list screen
          1. View a list of products showing name, price, and thumbnail.
