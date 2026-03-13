@@ -18,45 +18,55 @@ class ImplProductRepository(
 
     private var isFetchedThisSession = false
 
-    override fun getProducts(): Flow<List<Product>> = flow {
-        if (!isFetchedThisSession) {
+    override fun getProducts() = flow {
+        try {
 
-            val response = api.getProducts()
-
-            val entities = response.products.map {
-                it.toEntity()
+            if (!isFetchedThisSession) {
+                val response = api.getProducts()
+                val entities = response.products.map {
+                    it.toEntity()
+                }
+                dao.clearProducts()
+                dao.insertProducts(entities)
+                isFetchedThisSession = true
             }
 
-            dao.clearProducts()
-            dao.insertProducts(entities)
+            dao.getProducts()
+                .map { entities ->
+                    entities.map { it.toDomain() }
+                }
+                .collect { products ->
+                    emit(Result.success(products))
+                }
 
-            isFetchedThisSession = true
+        } catch (e: Exception) {
+
+            emit(Result.failure(e))
+
         }
-
-        dao.getProducts()
-            .map { entities ->
-                entities.map { it.toDomain() }
-            }
-            .collect { products ->
-                emit(products)
-            }
     }
 
     override fun viewProductDetails(productId: Int) = flow {
-        val response = api.getProductDetails(productId)
-        val product = response.toDomain()
-        emit(product)
+        try {
+
+            val response = api.getProductDetails(productId)
+            val product = response.toDomain()
+            emit(Result.success(product))
+        } catch (e: Exception) {
+            emit(Result.failure(e))
+        }
     }
 
     override fun searchProducts(keyword: String) = flow {
-        val response = api.searchProducts(keyword)
-        val products = response.products.map { productDto ->
-            productDto.toDomain()
-        }
-        emit(products)
-    }
+        try {
+            val response = api.searchProducts(keyword)
+            val products = response.products.map { dto ->
+                dto.toDomain()
+            }
+            emit(Result.success(products))
+        } catch (e: Exception) {
+            emit(Result.failure(e))
 
-    override suspend fun filterProducts(category: String): List<Product> {
-        TODO("Not yet implemented")
+        }
     }
 }
